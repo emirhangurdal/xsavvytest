@@ -15,7 +15,8 @@
 		587389ED269B1D280050FB4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 587389EC269B1D280050FB4D /* Assets.xcassets */; };
 		587389F0269B1D280050FB4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 587389EE269B1D280050FB4D /* LaunchScreen.storyboard */; };
 		58738A02269C383C0050FB4D /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58738A01269C383C0050FB4D /* LogsViewController.swift */; };
-		58738A06269C3DAC0050FB4D /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58738A05269C3DAC0050FB4D /* EditViewController.swift */; };
+		5896BFF826D3B58900866C02 /* RiseOF.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5896BFF726D3B58900866C02 /* RiseOF.ttf */; };
+		58AEF5ED26B177C5001B003A /* LogItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AEF5EC26B177C5001B003A /* LogItemCell.swift */; };
 		58BB1853269ED59B00CD2638 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB1852269ED59B00CD2638 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +31,8 @@
 		587389EF269B1D280050FB4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		587389F1269B1D280050FB4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58738A01269C383C0050FB4D /* LogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
-		58738A05269C3DAC0050FB4D /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		5896BFF726D3B58900866C02 /* RiseOF.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RiseOF.ttf; sourceTree = "<group>"; };
+		58AEF5EC26B177C5001B003A /* LogItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemCell.swift; sourceTree = "<group>"; };
 		58BB1852269ED59B00CD2638 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,6 +50,7 @@
 		587389D7269B1D220050FB4D = {
 			isa = PBXGroup;
 			children = (
+				5896BFF626D3B56800866C02 /* Fonts */,
 				58738A09269C47780050FB4D /* Controller */,
 				587389E2269B1D220050FB4D /* XSavvy */,
 				587389E1269B1D220050FB4D /* Products */,
@@ -79,12 +82,20 @@
 			isa = PBXGroup;
 			children = (
 				587389E7269B1D220050FB4D /* Home.swift */,
-				58738A01269C383C0050FB4D /* LogsViewController.swift */,
-				58738A05269C3DAC0050FB4D /* EditViewController.swift */,
 				5805DFB4269C573B0082213C /* CategoryCell.swift */,
+				58738A01269C383C0050FB4D /* LogsViewController.swift */,
+				58AEF5EC26B177C5001B003A /* LogItemCell.swift */,
 				58BB1852269ED59B00CD2638 /* TabBarViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		5896BFF626D3B56800866C02 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5896BFF726D3B58900866C02 /* RiseOF.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5896BFF826D3B58900866C02 /* RiseOF.ttf in Resources */,
 				587389F0269B1D280050FB4D /* LaunchScreen.storyboard in Resources */,
 				587389ED269B1D280050FB4D /* Assets.xcassets in Resources */,
 				587389EB269B1D220050FB4D /* Main.storyboard in Resources */,
@@ -157,8 +169,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58738A06269C3DAC0050FB4D /* EditViewController.swift in Sources */,
 				587389E8269B1D220050FB4D /* Home.swift in Sources */,
+				58AEF5ED26B177C5001B003A /* LogItemCell.swift in Sources */,
 				587389E4269B1D220050FB4D /* AppDelegate.swift in Sources */,
 				587389E6269B1D220050FB4D /* SceneDelegate.swift in Sources */,
 				58BB1853269ED59B00CD2638 /* TabBarViewController.swift in Sources */,
