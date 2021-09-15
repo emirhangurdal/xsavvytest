@@ -14,7 +14,7 @@
 import UIKit
 
 class LogsViewController: UIViewController {
-   
+
     lazy var x = Int()
     lazy var sumOfLogs = [Int]()
     lazy var numberOfItems = Int()
@@ -24,19 +24,10 @@ class LogsViewController: UIViewController {
     lazy var costArray = [[Double]]()
     static var forSumofCostArray = [Double]()
     static var sumFinal = Double()
-    
     var SwipeSelectedSectionNo = Int()
     var swipeSelectedRowNo = Int()
-    
-    
- 
-
-    
-    
     var categoryCostArray = [String]()
-    
-
-     var data = [CategoryLogPass]()
+    var data = [CategoryLogPass]()
     
     func getLogs() -> Int {
 
@@ -55,11 +46,9 @@ class LogsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
  
- 
+  
         data = HomeViewController.data
-        
-    
-       
+
         for i in 0..<self.data.count {
             
             itemArray.append(self.data[i].log)
@@ -135,28 +124,11 @@ class LogsViewController: UIViewController {
             
             itemArray.append(self.data[i].log)
             costArray.append(self.data[i].cost)
-            
             LogsViewController.forSumofCostArray.append(costArray[i].reduce(0, +))
-            print("LogsViewController.forSumofCostArray- DidSet ==\(LogsViewController.forSumofCostArray)")
-            print("LogsViewController.forSumofCostArray.reduce(0, +) - DidSet == \(LogsViewController.forSumofCostArray.reduce(0, +)) ")
-            
-            //            print("itemArrayAfterDidSet = \(itemArray)")
-            //            print("costArrayAfterDidSet = \(costArray)")
-            
-            
         }
         
         
         LogsViewController.sumFinal = LogsViewController.forSumofCostArray.reduce(0, +)
-        print("LogsViewController.sumFinal- AfterDidSetOutside for in == \(LogsViewController.sumFinal)")
-        
-        
-        
-        print("LogsViewController.forSumofCostArray- AfterDidSetOutside for in ==\(LogsViewController.forSumofCostArray)")
-        print("LogsViewController.forSumofCostArray.reduce(0, +) - AfterDidSetOutside for in== \(LogsViewController.forSumofCostArray.reduce(0, +)) ")
-        //        print(itemArray)
-        //        print(costArray)
-        
         
         self.tableView.reloadData()
        
@@ -166,7 +138,9 @@ class LogsViewController: UIViewController {
     
     
 
+   
     
+ 
  
     
 }
@@ -185,33 +159,68 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    
+
+
+    
     func numberOfSections(in tableView: UITableView) -> Int {
     
        return self.data.count
         
     }
     
+  
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
+
         
-        view.backgroundColor =  .clear
-        let sectionTitle = UILabel(frame: CGRect(x: 15, y: 0, width: view.frame.width - 15, height: 30))
-            
-   
-//        label.font = UIFontMetrics.default.scaledFont(for: customFont)
+        let sectionView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
+        let sectionTitle = UILabel(frame: CGRect(x: 15, y: 0, width: sectionView.frame.width - 15, height: 30))
+//        sectionTitle.frame.size = sectionView.frame.size
+        sectionView.backgroundColor =  .clear
+        
+//        func addConstraints() {
+//
+//            let constraints: [NSLayoutConstraint] = [
+//                sectionTitle.bottomAnchor.constraint(equalTo: sectionView.bottomAnchor),
+//                sectionTitle.topAnchor.constraint(equalTo: sectionView.bottomAnchor),
+//                sectionTitle.leadingAnchor.constraint(equalTo: sectionView.leadingAnchor),
+//                sectionTitle.trailingAnchor.constraint(equalTo: sectionView.trailingAnchor),]
+//
+//            NSLayoutConstraint.activate(constraints)
+//            sectionTitle.translatesAutoresizingMaskIntoConstraints = false
+//
+//        }
+//        addConstraints()
+     
+//
+        
+//     label.font = UIFontMetrics.default.scaledFont(for: customFont)
+        
         sectionTitle.font = UIFont(name: "RiseofKingdom", size: 20)
-       
-        
         sectionTitle.text = self.data[section].categoryTitle
-        view.addSubview(sectionTitle)
-        return view
+        print("section\(section)")
+        
+        sectionView.addSubview(sectionTitle)
+        
+        return sectionView
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+   
+
+    
     
    
     private func handleMoveToTrash() {
         print("Moved to trash")
         HomeViewController.data[SwipeSelectedSectionNo].log.remove(at: swipeSelectedRowNo)
         HomeViewController.data[SwipeSelectedSectionNo].cost.remove(at: swipeSelectedRowNo)
+        
+        HomeViewController.singletonHomeVC.defaults.set(try? PropertyListEncoder().encode(HomeViewController.data), forKey: "dataSaved")
         
     }
     
@@ -238,6 +247,8 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    
+    
 
 
     func editLog() {
@@ -254,9 +265,10 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
 
             print(" HomeViewController.data[self.SwipeSelectedSectionNo].log[self.swipeSelectedRowNo] == \( HomeViewController.data[self.SwipeSelectedSectionNo].log[self.swipeSelectedRowNo])")
             
-//            NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newdata"), object: nil)
             
-            //self.defaults.set(try? PropertyListEncoder().encode(HomeViewController.data), forKey: "dataSaved")
+            HomeViewController.singletonHomeVC.defaults.set(try? PropertyListEncoder().encode(HomeViewController.data), forKey: "dataSaved")
+                    
+//            self.defaults.set(try? PropertyListEncoder().encode(HomeViewController.data), forKey: "dataSaved")
         
         }
         
@@ -269,8 +281,9 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
                 HomeViewController.data[self.SwipeSelectedSectionNo].cost[self.swipeSelectedRowNo] = 0.00
             }
             
-           
-
+            
+            HomeViewController.singletonHomeVC.defaults.set(try? PropertyListEncoder().encode(HomeViewController.data), forKey: "dataSaved")
+            
         }
         
         alert.addTextField { (alertTextField) in
@@ -284,9 +297,6 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
             textFieldCost = alertTextField
             
         }
-        
-        
-        
         
         alert.addAction(action)
         alert.addAction(action2)
@@ -318,6 +328,7 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
 
 
         }
+        
         edit.backgroundColor = .systemBlue
 
         return UISwipeActionsConfiguration(actions: [edit])
@@ -327,6 +338,7 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
         let logCell = tableView.dequeueReusableCell(withIdentifier: "logCell") as! LogItemCell
         
         rowLogs = indexPath.row
@@ -335,7 +347,19 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
         
         logCell.logTitle.text = itemArray[indexPath.section][indexPath.row]
         logCell.icon.image = UIImage(named: "feather-pen64px")
-        logCell.cost.text = String(costArray[indexPath.section][indexPath.row])
+        
+        
+        
+        if CurrencyViewController.currencyCode != "" {
+            logCell.cost.text =
+                "\(String(costArray[indexPath.section][indexPath.row])) \(CurrencyViewController.currencyCode)"
+        } else {
+            logCell.cost.text =
+                "\(String(costArray[indexPath.section][indexPath.row])) $"
+        }
+        
+    
+        
         
         return logCell
         
@@ -344,6 +368,7 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        print("selectrow in LogView")
         tableView.deselectRow(at: indexPath, animated: true)
         
         

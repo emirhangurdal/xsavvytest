@@ -11,22 +11,26 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     var textFieldTitle = UITextField()
     var textFieldCost = UITextField()
     let button = UIButton.init(type: .custom)
+    
+    func dissmissingKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
   
     @objc func buttonClicked() {
        
-           
-     
                 let alert = UIAlertController(title: "Spent Money?", message: "Add New Item", preferredStyle: .alert)
                 let alert2 = UIAlertController(title: "Category", message: "Choose Category", preferredStyle: .alert)
                 let alert3 = UIAlertController(title: "Cost", message: "Type Cost/Price", preferredStyle: .alert)
             
          
                 let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-                  
-
                     for i in 0..<HomeViewController.data.count {
-
-                    
+                        
                         alert2.addAction(UIAlertAction(title: HomeViewController.data[i].categoryTitle, style: .default, handler: { (action2) in
                             
                             
@@ -40,21 +44,20 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
                                     }
                              
                                     HomeViewController.data[i].log.append(self.textFieldTitle.text!)
+                                    
+                                    HomeViewController.singletonHomeVC.defaults.set(try? PropertyListEncoder().encode(HomeViewController.data), forKey: "dataSaved")
+                                        
+                                        print("HomeViewController.data \(HomeViewController.data)")
                                  
                                 }))
-                                
-                        
                             
-                                
                                 self.present(alert3, animated: true, completion: nil)
 
                             }) )
                 
-                       
+                
                         }
-                   
                     
-    
                     alert3.addTextField { (alertTextField) in
                         alertTextField.placeholder = "Price of the Item/Service"
                         self.textFieldCost = alertTextField
@@ -65,8 +68,11 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
                         }))
                     
                     self.present(alert2, animated: true, completion: nil)
+                    
 
                             }
+        
+        
                 
                 
                 alert.addAction(action)
@@ -81,57 +87,19 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
                     alertTextField.placeholder = "Add Item"
                     self.textFieldTitle = alertTextField
                 }
+        
                 self.present(alert, animated: true, completion: nil)
                 
 
         }
     
-  
-//    private func setupChildViewControllers() {
-//        guard let viewControllers = viewControllers else {
-//            return
-//        }
-//
-//        for vc in viewControllers {
-//            var childViewController: UIViewController?
-//
-//            if let navigationController = vc as? UINavigationController {
-//                childViewController = navigationController.viewControllers.first
-//            } else {
-//                childViewController = vc
-//            }
-//
-//            switch childViewController {
-//
-//            case let vc as HomeViewController:
-//                vc.data = TabBarViewController.data
-//
-//            case let vc as LogsViewController:
-//                vc.data = TabBarViewController.data
-//
-//
-//            default:
-//                break
-//            }
-//
-//        }
-//
-//
-//    }
-    
-    
-    
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-      
+
         button.setImage(UIImage(named: "plusicon"), for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.yellow, for: .highlighted)
-        
         button.backgroundColor = .white
         button.layer.cornerRadius = 32
         button.layer.borderWidth = 4
@@ -139,17 +107,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         self.view.insertSubview(button, aboveSubview: self.tabBar)
         button.addTarget(self, action:#selector(buttonClicked), for: .touchUpInside)
        
-        
-//        for navController in viewControllers! {
-//            if let navController = navController as? UINavigationController,
-//                let viewController = navController.viewControllers.first as? Injectable {
-//                viewController.inject(data: self.dataFirst) //injection object is equal to data array.
-//            }
-//        }
-    
-    
-  
-      
     }
     
    

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5805DFB5269C573B0082213C /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5805DFB4269C573B0082213C /* CategoryCell.swift */; };
+		584E876D26D97F00004E320F /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584E876C26D97F00004E320F /* CurrencyViewController.swift */; };
 		587389E4269B1D220050FB4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587389E3269B1D220050FB4D /* AppDelegate.swift */; };
 		587389E6269B1D220050FB4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587389E5269B1D220050FB4D /* SceneDelegate.swift */; };
 		587389E8269B1D220050FB4D /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587389E7269B1D220050FB4D /* Home.swift */; };
@@ -16,12 +17,14 @@
 		587389F0269B1D280050FB4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 587389EE269B1D280050FB4D /* LaunchScreen.storyboard */; };
 		58738A02269C383C0050FB4D /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58738A01269C383C0050FB4D /* LogsViewController.swift */; };
 		5896BFF826D3B58900866C02 /* RiseOF.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5896BFF726D3B58900866C02 /* RiseOF.ttf */; };
+		589A308D26E203FF00A7C38B /* IconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589A308C26E203FF00A7C38B /* IconViewController.swift */; };
 		58AEF5ED26B177C5001B003A /* LogItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AEF5EC26B177C5001B003A /* LogItemCell.swift */; };
 		58BB1853269ED59B00CD2638 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB1852269ED59B00CD2638 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5805DFB4269C573B0082213C /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		584E876C26D97F00004E320F /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		587389E0269B1D220050FB4D /* XSavvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XSavvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		587389E3269B1D220050FB4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		587389E5269B1D220050FB4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +35,7 @@
 		587389F1269B1D280050FB4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58738A01269C383C0050FB4D /* LogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
 		5896BFF726D3B58900866C02 /* RiseOF.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RiseOF.ttf; sourceTree = "<group>"; };
+		589A308C26E203FF00A7C38B /* IconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewController.swift; sourceTree = "<group>"; };
 		58AEF5EC26B177C5001B003A /* LogItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemCell.swift; sourceTree = "<group>"; };
 		58BB1852269ED59B00CD2638 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +90,8 @@
 				58738A01269C383C0050FB4D /* LogsViewController.swift */,
 				58AEF5EC26B177C5001B003A /* LogItemCell.swift */,
 				58BB1852269ED59B00CD2638 /* TabBarViewController.swift */,
+				584E876C26D97F00004E320F /* CurrencyViewController.swift */,
+				589A308C26E203FF00A7C38B /* IconViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -170,6 +176,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				587389E8269B1D220050FB4D /* Home.swift in Sources */,
+				584E876D26D97F00004E320F /* CurrencyViewController.swift in Sources */,
+				589A308D26E203FF00A7C38B /* IconViewController.swift in Sources */,
 				58AEF5ED26B177C5001B003A /* LogItemCell.swift in Sources */,
 				587389E4269B1D220050FB4D /* AppDelegate.swift in Sources */,
 				587389E6269B1D220050FB4D /* SceneDelegate.swift in Sources */,

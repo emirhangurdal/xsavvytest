@@ -37,16 +37,14 @@ struct CategoryLogPass: Codable {
 
 
 
-
 class HomeViewController: UIViewController, UITabBarControllerDelegate {
     
-    
 
-        
     
-
+    
+    static let singletonHomeVC = HomeViewController()
+    
     static var data: [CategoryLogPass] =
-        
     
         [CategoryLogPass(categoryTitle: "Grocery", log: ["Bread", "Milk"], cost: [1.00, 2.00]),
          CategoryLogPass(categoryTitle: "Games", log: ["MAD", "COD"], cost: [1.00, 5.00]),
@@ -68,152 +66,256 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
 //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newdata"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newdata"), object: nil, userInfo: ["data": HomeViewController.data])
             
-          
             
         }
     }
     
-    
-    
-    
-    
 
-    @IBOutlet weak var balance: UILabel!
-    @IBOutlet weak var expenseLabel: UILabel!
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        notificationUpdates()
+        getExpense()
+        tableView.delegate = self
+        tableView.dataSource = self
+        localDataSave()
+        balance.delegate = self
+        configureBalanceSave()
+        configureResult()
+       
+
+    }
+
+    
+   
+    
+    
+  
+    
+    
+//MARK:- Properties
+    var userinteractionIs = false
+    @IBOutlet weak var balance: UITextField!
+    @IBOutlet weak var expenseLabel: UILabel!
     weak var delegate: UpdateDelegate?
     let defaults = UserDefaults.standard
     var textField1 = UITextField()
     static var rowHome = Int()
     static var rowsTableView = Int()
     var dataCount: Int?
+    lazy var currencySignTap = String()
+    var selectedIndexPath = IndexPath()
+    var indextPathForReload = Int()
+    static var arrayofHomeVCselectedIndex = [Int]()
+    static var arrayofIconVCicons = [UIImage]()
     
-
-    
-    @IBAction func addButtonTapped(_ sender: Any) {
-    
-        addCategory()
+    static var selectedIcon = [Int:UIImage]()
         
+     
+
+    static var selectedIndex: Int? {
+        didSet {
+
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "select"), object: nil, userInfo: ["selectedIndex": selectedIndex])
+            
+            print("selectedIndex in didSet\(selectedIndex)")
+            
+
+        }
+
     }
     
+    static var categoryIcon = UIImage()
+    var indexPathRow = Int()
+    
+    
+    @IBAction func addButtonTapped(_ sender: Any) {
+        addCategory()
+    }
 
     
-   
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var result: UILabel!
+    
+    //MARK:- User Interaction for the Icons
+    
+    
+    func dissmissingKeyboard() {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
+        self.view.addGestureRecognizer(tapGesture)
+    
+    }
+    
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        
+        self.view.endEditing(true)
+    }
+ //Above functions are not used.
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+                
+        
+        self.performSegue(withIdentifier: "gotoIcons", sender: self)
+//        print("indexPathRow = \(indexPathRow)")
+    }
+    
+    @objc func cellTitleTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        
+     
+        
+    }
+
+    
+    //MARK:- Expense Calculation Functions, Balance, Currency Sign Updates
+    
+     lazy var selectedRowHome = Int()
    
-    lazy var sumArray = [Double]()
+    lazy var sumArray = [Double]() {
+        didSet {
+            
+        }
+    }
+    
+    func configureResult() {
+        
+//        let balanceSaved = UserDefaults.standard.value(forKey:"balanceKey") as! String
+//        print("balanceSaved = \(balanceSaved)")
+//
+//        balance.text = balanceSaved
+        
+        if Double(balance.text!) != nil {
+
+            result.text = String(Double(balance.text!)! - sumArray.reduce(0, +))
+
+            if Double(result.text!)! < 0.00 {
+                result.textColor = .red
+            } else if Double(result.text!)! == 0.00 {
+                result.textColor = .black
+            } else {
+                result.textColor = .green
+            }
+            
+        } else {
+     
+            result.text = "<- Please enter only numbers"
+        }
+        
+    }
     
     @objc func getExpenseUpdate(notification: Notification) {
         
-        
-        
         guard let userInfo = notification.userInfo else {return}
         if let myData = userInfo["data"] as? [CategoryLogPass] {
-            
+    
             sumArray.removeAll()
-
-            for i in 0..<myData.count {
-                
-                sumArray.append(contentsOf: myData[i].cost)
-            }
-       
+            sumCategory.removeAll()
             
+            for i in 0..<myData.count {
+                sumArray.append(contentsOf: myData[i].cost)
+                sumCategory.append(myData[i].cost.reduce(0, +))
+            }
+           
+            tableView.reloadData()
+        }
+        if currencySignTap != "" {
+            expenseLabel.text = String("\(sumArray.reduce(0, +)) \(currencySignTap)")
+        } else {
+            expenseLabel.text = String("\(sumArray.reduce(0, +))")
         }
         
-        expenseLabel.text = String("\(sumArray.reduce(0, +))$")
-        
-        print("sumArray.reduce(0, +) in getExpenseUpdate() == \(sumArray.reduce(0, +))")
-       
-        
+        configureResult()
+     
+      
     }
+    
+    var sumCategory = [Double]()
     
     func getExpense() {
         
         for i in 0..<HomeViewController.data.count {
-            
             sumArray.append(contentsOf: HomeViewController.data[i].cost)
+            sumCategory.append(HomeViewController.data[i].cost.reduce(0, +))
         }
-        print(sumArray.reduce(0, +))
         
-        
-        
+
         LogsViewController.sumFinal = sumArray.reduce(0, +)
-        expenseLabel.text = String("\(LogsViewController.sumFinal)$")
         
+        
+        if currencySignTap != "" {
+            expenseLabel.text = String("\(LogsViewController.sumFinal) \(currencySignTap)")
+        } else {
+            expenseLabel.text = String("\(LogsViewController.sumFinal)")
+        }
+        
+        configureResult()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-       
-    }
- 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       
-        NotificationCenter.default.addObserver(self, selector: #selector(self.getExpenseUpdate), name: NSNotification.Name(rawValue: "newdata"), object: nil)
+    @objc func signUpdate() {
+        
+        sumArray.removeAll()
         getExpense()
         
+    }
     
-        tableView.delegate = self
-        tableView.delegate = self
-//        localDataSave()
+//MARK:- NotificationUpdates
+
+    func notificationUpdates() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.getExpenseUpdate), name: NSNotification.Name(rawValue: "newdata"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.changeCurrencySign), name: NSNotification.Name(rawValue: "newCurrency"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signUpdate), name: NSNotification.Name(rawValue: "newCurrency"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         
     }
     
-  
     
-
-
+   
     
-    func localDataSave() {
+    @objc func loadList(notification: NSNotification){
         
+        tableView.reloadRows(at: [selectedIndexPath], with: .none)
+//        tableView.reloadData()
+        
+    }
+    
+    
+    
+    //MARK:- Local Data
+
+    func localDataSave() {
         if let dataSaved = UserDefaults.standard.value(forKey:"dataSaved") as? Data {
            let savedData = try? PropertyListDecoder().decode(Array<CategoryLogPass>.self, from: dataSaved)
             HomeViewController.data = savedData!
-        } 
-        
+        }
     }
     
+    func configureBalanceSave() {
+        let balanceSaved = UserDefaults.standard.value(forKey:"balanceKey") as? String
+        if balanceSaved != nil, balanceSaved != "" {
+            balance.text = balanceSaved
+            
+            result.text = String(Double(balance.text!)! - Double(expenseLabel.text!)!)
+        } else {
+            
+        }
+    }
     
-    
-
     
     func getLastRow() -> Int {
-       
         let lastSectionIndex = self.tableView.numberOfSections - 1
         let lastRowIndex = self.tableView.numberOfRows(inSection: lastSectionIndex) - 1
-        
-            return lastRowIndex
-      
+        return lastRowIndex
     }
-    
-
-    
-//    func addconstraints() {
-//
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let constraints: [NSLayoutConstraint] = [
-//
-//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 300),
-//            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 250),
-//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 5),
-//
-//
-//
-//
-//]
-//
-//        NSLayoutConstraint.activate(constraints)
-//
-//    }
-    
-
-
 }
+
+
 
 
 
@@ -221,40 +323,112 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
+        @objc func changeCurrencySign() {
+            
+            currencySignTap = CurrencyViewController.currencyCode
+            tableView.reloadData()
+        }
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        
-        return HomeViewController.data.count
+    @objc func updateIcon(notification: Notification) {
+        tableView.reloadData()
         
     }
+
     
- 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return HomeViewController.data.count
+    }
+    
+   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+    
+        
         let categoryCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! CategoryCell
        
+// Notifications and gesture.
+    
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.changeCurrencySign), name: NSNotification.Name(rawValue: "newCurrency"), object: nil)
+        
         HomeViewController.rowsTableView = indexPath.row
+        
       
         
-//        Dictionary(grouping: currentStat.statEvents, by: \.name)
-    
-
-        categoryCell.icon.backgroundColor = .blue // catery icon.
-        categoryCell.cost.text = "1$" //sum of logsview items cost array that belong to a particular category.
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        tapGesture.cancelsTouchesInView = false
+        categoryCell.icon.addGestureRecognizer(tapGesture)
+        
+//     let cellTapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTitleTapped))
+//     cellTapGesture.cancelsTouchesInView = true
+//     categoryCell.addGestureRecognizer(cellTapGesture)
+        
+        
+// Cell config.
+        
+        if currencySignTap != "" {
+            categoryCell.cost.text = "\(sumCategory[indexPath.row]) \(currencySignTap)"
+        } else {
+            categoryCell.cost.text = "\(sumCategory[indexPath.row]) $"
+        }
+        
         categoryCell.category.text = HomeViewController.data[indexPath.row].categoryTitle
-     
+       
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateIndex), name: NSNotification.Name(rawValue: "select"), object: nil)
+        
+        
+        indexPathRow = indexPath.row
+//        print("indexPathRow = \(indexPathRow)")
+        
+        
+        
+        
+        if IconViewController.indexPathRowBack == indexPath.row {
+            
+            if IconViewController.keyArray.uniqued().contains(IconViewController.indexPathRowBack) {
+                
+                categoryCell.icon.image = HomeViewController.selectedIcon[indexPath.row]
+                
+                
+            } else {
+                
+                categoryCell.icon.image = UIImage(named: "icons8-grocery-64")
+            }
+            
+            
+        }
+       
+        
+        
         
         
         return categoryCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        selectedIndexPath = indexPath
+        HomeViewController.selectedIndex = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        
+    }
+    
+    
+    
+    
+    
 
+//MARK:- Swipe Actions and Methods
 
     private func handleMoveToTrash() {
         print("Moved to trash")
@@ -267,8 +441,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func addCategory() {
-        
-        
         
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         
@@ -342,8 +514,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             
             
         }
+        
         edit.backgroundColor = .systemBlue
-
         return UISwipeActionsConfiguration(actions: [edit])
     }
     
@@ -355,20 +527,52 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                                        title: "Delete") { [weak self] (action, view, completionHandler) in
                                         self?.handleMoveToTrash()
                                         completionHandler(true)
-            
-
         }
         
         
         trash.backgroundColor = .systemRed
         
         let configuration = UISwipeActionsConfiguration(actions: [trash])
-        
         return configuration
-        
         
     }
     
+    
+}
+
+//MARK:- Textfield Delegate Methods
+
+extension HomeViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        balance.resignFirstResponder()
+        defaults.set(balance.text, forKey: "balanceKey")
+        return true
+        }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        userinteractionIs = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+    }
+    
+//
+//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//
+//        var shouldClear = Bool()
+//        if userinteractionIs == true {
+//            shouldClear = true
+//        }
+//        return shouldClear
+//
+//
+//    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        
+        configureResult()
+    }
     
 }
 
