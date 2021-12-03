@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,9 +20,12 @@
 		589A308D26E203FF00A7C38B /* IconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589A308C26E203FF00A7C38B /* IconViewController.swift */; };
 		58AEF5ED26B177C5001B003A /* LogItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AEF5EC26B177C5001B003A /* LogItemCell.swift */; };
 		58BB1853269ED59B00CD2638 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB1852269ED59B00CD2638 /* TabBarViewController.swift */; };
+		58C667B72718552E001EB4F0 /* DetailCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C667B62718552E001EB4F0 /* DetailCategoryVC.swift */; };
+		CEA1CBF9995A80DB1D4FCB85 /* Pods_XSavvy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A89ED56DD0ED79661E239C /* Pods_XSavvy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32A89ED56DD0ED79661E239C /* Pods_XSavvy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XSavvy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5805DFB4269C573B0082213C /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		584E876C26D97F00004E320F /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		587389E0269B1D220050FB4D /* XSavvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XSavvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,7 +33,7 @@
 		587389E5269B1D220050FB4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		587389E7269B1D220050FB4D /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		587389EA269B1D220050FB4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		587389EC269B1D280050FB4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		587389EC269B1D280050FB4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = XSavvy/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		587389EF269B1D280050FB4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		587389F1269B1D280050FB4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58738A01269C383C0050FB4D /* LogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +41,9 @@
 		589A308C26E203FF00A7C38B /* IconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewController.swift; sourceTree = "<group>"; };
 		58AEF5EC26B177C5001B003A /* LogItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogItemCell.swift; sourceTree = "<group>"; };
 		58BB1852269ED59B00CD2638 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		58C667B62718552E001EB4F0 /* DetailCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategoryVC.swift; sourceTree = "<group>"; };
+		CA0710B52B71EFADAC996905 /* Pods-XSavvy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XSavvy.debug.xcconfig"; path = "Target Support Files/Pods-XSavvy/Pods-XSavvy.debug.xcconfig"; sourceTree = "<group>"; };
+		E22F4F57EA8EFA5ADB0E5894 /* Pods-XSavvy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XSavvy.release.xcconfig"; path = "Target Support Files/Pods-XSavvy/Pods-XSavvy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA1CBF9995A80DB1D4FCB85 /* Pods_XSavvy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +65,8 @@
 				58738A09269C47780050FB4D /* Controller */,
 				587389E2269B1D220050FB4D /* XSavvy */,
 				587389E1269B1D220050FB4D /* Products */,
+				75FB0F6D2F57FC65265B488A /* Pods */,
+				E7248FF8321447D678A327B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +101,7 @@
 				58BB1852269ED59B00CD2638 /* TabBarViewController.swift */,
 				584E876C26D97F00004E320F /* CurrencyViewController.swift */,
 				589A308C26E203FF00A7C38B /* IconViewController.swift */,
+				58C667B62718552E001EB4F0 /* DetailCategoryVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -104,6 +114,23 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		75FB0F6D2F57FC65265B488A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CA0710B52B71EFADAC996905 /* Pods-XSavvy.debug.xcconfig */,
+				E22F4F57EA8EFA5ADB0E5894 /* Pods-XSavvy.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E7248FF8321447D678A327B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32A89ED56DD0ED79661E239C /* Pods_XSavvy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,9 +138,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 587389F4269B1D280050FB4D /* Build configuration list for PBXNativeTarget "XSavvy" */;
 			buildPhases = (
+				11762318FBF471398D732CDD /* [CP] Check Pods Manifest.lock */,
 				587389DC269B1D220050FB4D /* Sources */,
 				587389DD269B1D220050FB4D /* Frameworks */,
 				587389DE269B1D220050FB4D /* Resources */,
+				DD502EA0514A0720078383FD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -170,6 +199,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11762318FBF471398D732CDD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XSavvy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD502EA0514A0720078383FD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XSavvy/Pods-XSavvy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XSavvy/Pods-XSavvy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XSavvy/Pods-XSavvy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		587389DC269B1D220050FB4D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -180,6 +251,7 @@
 				589A308D26E203FF00A7C38B /* IconViewController.swift in Sources */,
 				58AEF5ED26B177C5001B003A /* LogItemCell.swift in Sources */,
 				587389E4269B1D220050FB4D /* AppDelegate.swift in Sources */,
+				58C667B72718552E001EB4F0 /* DetailCategoryVC.swift in Sources */,
 				587389E6269B1D220050FB4D /* SceneDelegate.swift in Sources */,
 				58BB1853269ED59B00CD2638 /* TabBarViewController.swift in Sources */,
 				58738A02269C383C0050FB4D /* LogsViewController.swift in Sources */,
@@ -260,7 +332,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -315,7 +387,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -327,12 +399,14 @@
 		};
 		587389F5269B1D280050FB4D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA0710B52B71EFADAC996905 /* Pods-XSavvy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 36LWVJ2THH;
 				INFOPLIST_FILE = XSavvy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,18 +414,20 @@
 				PRODUCT_BUNDLE_IDENTIFIER = muhtar.XSavvy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		587389F6269B1D280050FB4D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E22F4F57EA8EFA5ADB0E5894 /* Pods-XSavvy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 36LWVJ2THH;
 				INFOPLIST_FILE = XSavvy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -359,7 +435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = muhtar.XSavvy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
