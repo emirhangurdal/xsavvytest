@@ -1,9 +1,3 @@
-//
-//  AppDelegate.swift
-//  XSavvy
-//
-//  Created by Emir Gurdal on 11.07.2021.
-//
 
 import UIKit
 

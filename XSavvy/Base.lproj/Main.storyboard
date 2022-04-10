@@ -127,8 +127,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xKJ-xf-hbu" userLabel="ButtonView">
-                                <rect key="frame" x="0.0" y="280" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="250" width="414" height="30"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzq-aq-8be">
+                                        <rect key="frame" x="103.5" y="-0.5" width="67" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="addSegmentButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2sT-pO-j7J"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4N-Qc-hV4">
                                         <rect key="frame" x="362" y="-3" width="30" height="36"/>
                                         <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="20"/>
@@ -157,24 +165,45 @@
                                             <action selector="exchange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m7l-6a-9RY"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGD-3a-GCK">
+                                        <rect key="frame" x="267" y="0.0" width="60" height="30"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Collapse"/>
+                                        <connections>
+                                            <action selector="collapseTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ORX-cw-knw"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="oGD-3a-GCK" firstAttribute="centerY" secondItem="xKJ-xf-hbu" secondAttribute="centerY" id="7Cm-IV-WWd"/>
                                     <constraint firstItem="KHB-0H-fz2" firstAttribute="centerY" secondItem="xKJ-xf-hbu" secondAttribute="centerY" id="CYz-ha-Rju"/>
                                     <constraint firstItem="J4N-Qc-hV4" firstAttribute="centerX" secondItem="xKJ-xf-hbu" secondAttribute="centerX" constant="170" id="Kt7-xz-6zx"/>
                                     <constraint firstItem="J4N-Qc-hV4" firstAttribute="centerY" secondItem="xKJ-xf-hbu" secondAttribute="centerY" id="bDa-1B-GMx"/>
+                                    <constraint firstItem="oGD-3a-GCK" firstAttribute="centerX" secondItem="xKJ-xf-hbu" secondAttribute="centerX" constant="90" id="hFH-wf-N4g"/>
                                     <constraint firstItem="SZC-t7-9Xc" firstAttribute="centerX" secondItem="xKJ-xf-hbu" secondAttribute="centerX" id="j0c-5V-S8J"/>
+                                    <constraint firstItem="bzq-aq-8be" firstAttribute="centerX" secondItem="xKJ-xf-hbu" secondAttribute="centerX" constant="-70" id="uKw-7l-0rb"/>
+                                    <constraint firstItem="bzq-aq-8be" firstAttribute="centerY" secondItem="xKJ-xf-hbu" secondAttribute="centerY" id="xSE-9z-A0V"/>
                                     <constraint firstItem="KHB-0H-fz2" firstAttribute="centerX" secondItem="xKJ-xf-hbu" secondAttribute="centerX" constant="-150" id="xb1-pF-N8p"/>
                                     <constraint firstItem="SZC-t7-9Xc" firstAttribute="centerY" secondItem="xKJ-xf-hbu" secondAttribute="centerY" id="zeh-vk-Xbk"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7e-fm-Wtb">
+                                <rect key="frame" x="344" y="291" width="50" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="-"/>
+                                <connections>
+                                    <action selector="RemoveTab:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r4d-Sw-8oA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="YKB-Zh-8j1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="3" id="J38-Fb-mcp"/>
-                            <constraint firstItem="xKJ-xf-hbu" firstAttribute="top" secondItem="VNs-9H-p41" secondAttribute="bottom" constant="200" id="XYC-WF-j8P"/>
+                            <constraint firstItem="xKJ-xf-hbu" firstAttribute="top" secondItem="VNs-9H-p41" secondAttribute="bottom" constant="170" id="XYC-WF-j8P"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YKB-Zh-8j1" secondAttribute="trailing" constant="3" id="Zuw-v6-wXC"/>
-                            <constraint firstItem="YKB-Zh-8j1" firstAttribute="top" secondItem="xKJ-xf-hbu" secondAttribute="bottom" constant="20" id="agh-xD-7mD"/>
+                            <constraint firstItem="YKB-Zh-8j1" firstAttribute="top" secondItem="xKJ-xf-hbu" secondAttribute="bottom" constant="50" id="agh-xD-7mD"/>
                             <constraint firstItem="VNs-9H-p41" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="bdt-WW-nfq"/>
                             <constraint firstItem="VNs-9H-p41" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fQt-HE-bt5"/>
                             <constraint firstItem="xKJ-xf-hbu" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hDo-EO-6pu"/>
@@ -189,12 +218,15 @@
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="wW6-q5-I17"/>
                     <connections>
+                        <outlet property="RemoveTabButton" destination="n7e-fm-Wtb" id="1cO-GD-hhD"/>
                         <outlet property="addButton" destination="SZC-t7-9Xc" id="JcF-Dl-etG"/>
                         <outlet property="balance" destination="aTw-Mp-0Ml" id="rQr-LS-bax"/>
+                        <outlet property="buttonViewToptoLabelViewBottom" destination="XYC-WF-j8P" id="4BE-hc-jDP"/>
                         <outlet property="currencyBalance" destination="Xi2-9H-4p8" id="zfn-gH-7rs"/>
                         <outlet property="expenseLabel" destination="3NN-we-yGY" id="88f-rL-L2Y"/>
                         <outlet property="result" destination="bOg-bh-Jm0" id="e1W-xX-lRf"/>
                         <outlet property="tableView" destination="YKB-Zh-8j1" id="Th6-DQ-VPj"/>
+                        <outlet property="tableViewTopConst" destination="jLa-bd-bfe" id="RIW-Bl-xh9"/>
                         <segue destination="IyF-tX-rip" kind="presentation" identifier="gotoIcons" id="y4y-BL-pUf"/>
                         <segue destination="gla-eo-htN" kind="presentation" identifier="goToDetail" id="k1L-KD-9ED"/>
                     </connections>
@@ -427,7 +459,7 @@
             <objects>
                 <tabBarController storyboardIdentifier="TabView" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yay-WV-yKG" customClass="TabBarViewController" customModule="XSavvy" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="sqi-KM-Cpn">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="sqi-KM-Cpn">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -452,7 +484,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="J6A-uO-bEP">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

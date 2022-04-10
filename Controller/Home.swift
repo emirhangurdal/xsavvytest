@@ -7,26 +7,21 @@ import SafariServices
 protocol UpdateDelegate: AnyObject {
     func didUpdate(sender: HomeViewController)
 }
-
 struct CategoryLogPass: Codable {
     var icon: Data
     var categoryTitle: String
     var log: [String]
     var cost: [Double]
     init(icon: UIImage, categoryTitle: String, log: [String], cost: [Double]) {
-        
         self.icon = icon.pngData()!
         self.categoryTitle = categoryTitle
         self.log = log
         self.cost = cost
     }
-    
     func match(string: String) -> Bool {
-        
         return log.contains { log in
             log.localizedCaseInsensitiveContains(string)
         }
-
     }
 }
 class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartViewDelegate {
@@ -62,21 +57,25 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
         view.addSubview(chartView)
         chartView.addSubview(pieChart)
         addConstraints()
+        addSagmentControl()
+
         self.navigationController?.navigationBar.isTranslucent = true
         addLogo()
         getRandomColors()
+        if traitCollection.userInterfaceStyle == .dark{
+            self.tabBarController?.tabBar.backgroundColor = .darkGray
+            self.navigationController?.navigationBar.backgroundColor = .darkGray
+        } else {
+            self.tabBarController?.tabBar.backgroundColor = .white
+            self.navigationController?.navigationBar.backgroundColor = .white
+        }
     }
-    
-
-    
-    
 //MARK: - Add Logo - Get Colors
     func addLogo() {
          let logoView = UIImageView()
         logoView.image = UIImage(named: "Applogo")
          logoView.contentMode = .scaleAspectFit
          logoView.translatesAutoresizingMaskIntoConstraints = false
-
          if let navC = self.navigationController{
              navC.navigationBar.addSubview(logoView)
              logoView.centerXAnchor.constraint(equalTo: navC.navigationBar.centerXAnchor).isActive = true
@@ -85,7 +84,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
              logoView.heightAnchor.constraint(equalTo: navC.navigationBar.widthAnchor, multiplier: 0.088).isActive = true
          }
     }
-    
    func getRandomColors() {
        HomeViewController.arrayofRandomColors.removeAll()
         for _ in 0..<HomeViewController.data.count {
@@ -93,7 +91,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
         }
         print("HomeViewController.arrayofRandomColors.count = \(HomeViewController.arrayofRandomColors.count)")
     }
-    
     //MARK: - Chart
     let chartView = UIView()
     var pieChart = PieChartView()
@@ -113,7 +110,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
         set.colors = HomeViewController.arrayofRandomColors
         let data = PieChartData(dataSet: set)
         pieChart.data = data
-        
         func dissmissingKeyboard() {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
             pieChart.addGestureRecognizer(tapGesture)
@@ -122,27 +118,58 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
         dissmissingKeyboard()
     }
 // Constraints for Chart:
+    var topConst: ConstraintMakerEditable? = nil
+    var bottomConst: ConstraintMakerEditable? = nil
+    var rightConst: ConstraintMakerEditable? = nil
+    var leftConst: ConstraintMakerEditable? = nil
     func addConstraints() {
-//        pieChart.frame = CGRect(x: 0, y: 0, width: chartView.frame.size.width, height: chartView.frame.size.height)
+        //        pieChart.frame = CGRect(x: 0, y: 0, width: chartView.frame.size.width, height: chartView.frame.size.height)
         chartView.backgroundColor = .clear
-
-        
         chartView.snp.makeConstraints { chartView in
-            chartView.right.equalTo(view.snp.right)
-            chartView.left.equalTo(view.snp.left)
-            chartView.bottom.equalTo(addButton).offset(-40)
-            chartView.top.equalTo(result).offset(15)
+            rightConst = chartView.right.equalTo(view.snp.right)
+            leftConst = chartView.left.equalTo(view.snp.left)
+            bottomConst = chartView.bottom.equalTo(addButton).offset(-40)
+            topConst = chartView.top.equalTo(result).offset(15)
         }
-      
         
-        
+        //        rightConst?.constraint.activate()
+        //        leftConst?.constraint.activate()
+        //        bottomConst?.constraint.activate()
+        //        topConst?.constraint.activate()
         pieChart.snp.makeConstraints { make in
             make.top.bottom.left.right.equalTo(self.chartView)
         }
     }
-        
-//MARK: - Properties
+    @IBOutlet weak var tableViewTopConst: NSLayoutConstraint!
+    @IBOutlet weak var buttonViewToptoLabelViewBottom: NSLayoutConstraint!
+    var switchCollapse = false
     
+    @IBAction func collapseTap(_ sender: UIButton) {
+        switchCollapse.toggle()
+        print(switchCollapse)
+        
+        if switchCollapse == true {
+            sender.setTitle("Show", for: .normal)
+            UIView.animate(withDuration: 0.5) {
+//                self.tableViewTopConst.constant = 300
+                self.chartView.removeFromSuperview()
+                self.tableViewTopConst.constant = 200
+                self.buttonViewToptoLabelViewBottom.constant = 20
+//                self.bottomConst?.constraint.update(offset: -180)
+//                self.chartView.layoutIfNeeded()
+            } completion: { _ in
+               print("fuck")
+            }
+        } else {
+            sender.setTitle("Collapse", for: .normal)
+            self.view.addSubview(chartView)
+            addConstraints()
+            self.buttonViewToptoLabelViewBottom.constant = 170
+            self.tableViewTopConst.constant = 360
+//            self.bottomConst?.constraint.update(offset: -40)
+        }
+    }
+//MARK: - Properties
     var userinteractionIs = false
     @IBOutlet weak var balance: UITextField!
     @IBOutlet weak var expenseLabel: UILabel!
@@ -171,21 +198,16 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
     static var selectedIndexArray = [Int]()
     static var selectedIndex: Int? {
         didSet {
-
 //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "select"), object: nil, userInfo: ["selectedIndex": selectedIndex])
         }
     }
-    
     @IBOutlet weak var addButton: UIButton!
     @IBAction func addButtonTapped(_ sender: Any) {
         addCategory()
     }
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var result: UILabel!
-    
-    
     @IBAction func exchange(_ sender: Any) {
-        
        let url = URL(string: "https://www1.oanda.com/currency/converter/")
         if url != nil {
             let vc = SFSafariViewController(url: url!)
@@ -194,10 +216,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
             return
         }
     }
-    
-    
     //MARK: - User Interaction for the Icons
-
     func dissmissingKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
         self.view.addGestureRecognizer(tapGesture)
@@ -268,7 +287,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
         }
         configureResult()
     }
-    
     @objc func signUpdate() {
         sumArray.removeAll()
         getExpense()
@@ -331,10 +349,63 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate, ChartVie
         let lastRowIndex = self.tableView.numberOfRows(inSection: lastSectionIndex) - 1
         return lastRowIndex
     }
+    //MARK: - Sagmentation
+        enum SegmentType: String {
+            case categories = "Categories"
+            case new = "New"
+        }
+    var segments: [SegmentType] = [.categories]
+        lazy var segmentControl: UISegmentedControl = {
+            let sc = UISegmentedControl(items: segments.map({ $0.rawValue }))
+            sc.layer.cornerRadius = 5
+            sc.backgroundColor = .black
+            sc.tintColor = .white
+            sc.selectedSegmentIndex = 0
+            sc.addTarget(self, action: #selector(actionofSC), for: .valueChanged)
+            sc.backgroundColor = .green
+            return sc
+        }()
+    @objc func actionofSC() {
+        let type = segments[segmentControl.selectedSegmentIndex]
+        switch type {
+        case .categories:
+            print("categories")
+        case .new:
+            print("new")
+            HomeViewController.data.removeAll()
+            tableView.reloadData()
+        }
+    }
+    func addSagmentControl(){
+        self.view.addSubview(segmentControl)
+        segmentControl.snp.makeConstraints { sagmentedControl in
+            sagmentedControl.bottom.equalTo(tableView.snp.top).offset(-5)
+            sagmentedControl.top.equalTo(addButton.snp.bottom).offset(5)
+            sagmentedControl.right.equalTo(view).offset(-40)
+            sagmentedControl.left.equalTo(view).offset(40)
+        }
+        removeTabButton.snp.makeConstraints { removeTabButton in
+            removeTabButton.bottom.equalTo(tableView.snp.top).offset(-5)
+            removeTabButton.top.equalTo(addButton.snp.bottom).offset(5)
+            removeTabButton.right.equalTo(view).offset(-5)
+            removeTabButton.left.equalTo(segmentControl.snp.right).offset(5)
+        }
+        
+    }
+    @IBAction func addSegmentButton(_ sender: Any) {
+            segmentControl.insertSegment(withTitle: "New", at: segmentControl.numberOfSegments, animated: true)
+            segments.append(.new)
+    }
+    @IBOutlet weak var removeTabButton: UIButton!
+    @IBAction func RemoveTab(_ sender: Any) {
+        if segments.count > 0 {
+            segmentControl.removeSegment(at: segmentControl.numberOfSegments-1, animated: true)
+                segments.removeLast()
+        }
+    }
 }
 
 //MARK: - TableView
-
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         @objc func changeCurrencySign() {
             let currencySaved = UserDefaults.standard.value(forKey:"currencySaved") as? String
@@ -350,10 +421,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     @objc func updateIcon(notification: Notification) {
         tableView.reloadData()
     }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return HomeViewController.data.count
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        90
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let categoryCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! CategoryCell
 // Notifications and gesture.
@@ -372,32 +446,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         categoryCell.category.text = HomeViewController.data[indexPath.row].categoryTitle
         categoryCell.icon.image = UIImage(data: HomeViewController.data[indexPath.row].icon)
-      
         categoryCell.category.textColor = HomeViewController.arrayofRandomColors.uniqued()[indexPath.row]
         categoryCell.cost.textColor = HomeViewController.arrayofRandomColors.uniqued()[indexPath.row]
-
         return categoryCell
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         selectedIndexPath = indexPath
         HomeViewController.selectedIndex = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
-
         HomeViewController.selectedIndexArray.append(indexPath.row)
         performSegue(withIdentifier: "goToDetail", sender: self)
     }
-
 //MARK: - Swipe Actions and Methods
-
     private func handleMoveToTrash() {
         print("Moved to trash")
         HomeViewController.data.remove(at: HomeViewController.rowHome)
         self.tableView.reloadData()
         saveData()
     }
-
     func addCategory() {
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add item", style: .default) { (action) in
@@ -410,13 +476,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             alertTextField.placeholder = "Add Category"
             self.textField1 = alertTextField
         }
-        
         alert.addAction(action)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
         }))
         present(alert, animated: true, completion: nil)
     }
-
     private func goToEdit() {
        var textField = UITextField()
         let alert = UIAlertController(title: "Type Category Name", message: "", preferredStyle: .alert)
@@ -434,7 +498,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }))
         present(alert, animated: true, completion: nil)
     }
-    
     func tableView(_ tableView: UITableView,
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         HomeViewController.rowHome = indexPath.row
@@ -459,16 +522,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return configuration
     }
 }
-
 //MARK: - Textfield Delegate Methods
-
 extension HomeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         configureResult()
         balance.resignFirstResponder()
         return true
         }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if balance.text != "" || string != "" {
             let res = (balance.text ?? "") + string
@@ -477,11 +537,8 @@ extension HomeViewController: UITextFieldDelegate {
         
         return true
     }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
     }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         userinteractionIs = true
         defaults.set(balance.text, forKey: "balanceKey")
@@ -489,8 +546,6 @@ extension HomeViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         configureResult()
     }
-    
-    
 }
 //MARK: - Random Color
 extension CGFloat {

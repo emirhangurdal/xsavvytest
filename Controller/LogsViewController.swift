@@ -200,18 +200,15 @@ extension LogsViewController: UITableViewDelegate, UITableViewDataSource {
         String(costArray[indexPath.section][indexPath.row])
         return logCell
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tappedCell = indexPath.row
         tappedSection = indexPath.section
         configureCostEdit()
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
-    
 //MARK: - Swipe Actions
     private func handleMoveToTrash() {
         print("Moved to trash")

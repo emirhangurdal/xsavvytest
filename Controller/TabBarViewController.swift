@@ -1,13 +1,6 @@
 
-
 import UIKit
-
-
-
-
-
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
-    
     var textFieldTitle = UITextField()
     var textFieldCost = UITextField()
     let button = UIButton.init(type: .custom)
@@ -76,8 +69,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         tabBar.items?[1].title = "All Items"
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Optima-Bold", size: 20)!], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Optima-Bold", size: 20)!], for: .selected)
-        
-        
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
